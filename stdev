@@ -1,0 +1,24 @@
+#!/bin/bash
+#Calculates stdev
+if [[ ("$1" == "-h" ) || ( "$1" == "--help" ) ]]; then
+echo "This programs takes one input file with one column then computes the standard deviation"
+echo " "
+echo "Example: "
+echo ">> ./stdev list2"
+echo ">> 2.91548"
+echo " "
+echo "Copyright: "
+echo "Jin Hyun Cheong 2015"
+echo "jin.hyun.cheong.gr@dartmouth.edu"
+echo "Psychological Brain Sciences"
+echo "Dartmouth College"
+exit 0
+else
+var=$1
+awk '{sum += $1;
+for (i=1; i<=NF; i++) {
+	sumsq += ($i-(sum/NR))**2
+}
+}
+END { print sqrt(sumsq/NR) }' $var
+fi

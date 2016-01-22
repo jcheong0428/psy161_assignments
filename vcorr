@@ -1,0 +1,36 @@
+#!/bin/bash
+# Calculates correlation via dot product method
+if [[ ("$1" == "-h" ) || ( "$1" == "--help" ) ]]; then
+echo "This programs takes one input file with two columns then computes the correlation through the dot product method"
+echo " "
+echo "Example: "
+echo ">> ./vcorr list1"
+echo ">> 0.496942"
+echo " "
+echo "Copyright: "
+echo "Jin Hyun Cheong 2015"
+echo "jin.hyun.cheong.gr@dartmouth.edu"
+echo "Psychological Brain Sciences"
+echo "Dartmouth College"
+exit 0
+else
+awk '{
+         x[NR]=$1;
+         y[NR]=$2;
+ }
+ END {
+ for (i in x) {
+ sum_x += x[i]
+ sum_y += y[i]
+ }
+ avg_x = sum_x / NR
+ avg_y = sum_y / NR
+ for (i in x) {
+ dot_xy += (x[i] - avg_x)*(y[i] - avg_y)
+ ssq_x += (x[i]-avg_x)**2
+ ssq_y += (y[i]-avg_y)**2
+ }
+ print dot_xy/(sqrt(ssq_x)*sqrt(ssq_y))
+ }' $1 $2
+fi
+

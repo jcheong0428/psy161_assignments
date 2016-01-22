@@ -1,0 +1,10 @@
+#!/bin/bash
+#Calculates stdev
+
+var=$1
+awk '{sum += $1;
+for (i=1; i<=NF; i++) {
+	sumsq += ($i-(sum/NR))**2
+}
+}
+END { print sqrt(sumsq/NR) }' $var

@@ -1,0 +1,29 @@
+#!/bin/bash
+# Calculates dot product
+if [[ ("$1" == "-h" ) || ( "$1" == "--help" ) ]]; then
+echo "This programs takes one input file with two columns then computes the dot product"
+echo " "
+echo "Example: "
+echo ">> ./dot list1"
+echo ">> 98"
+echo " "
+echo "Copyright: "
+echo "Jin Hyun Cheong 2015"
+echo "jin.hyun.cheong.gr@dartmouth.edu"
+echo "Psychological Brain Sciences"
+echo "Dartmouth College"
+exit 0
+else
+awk '{
+        x[NR]=$1;
+        y[NR]=$2;
+}
+END {
+for (i in x) {
+sum_xy += x[i]*y[i]
+}
+print sum_xy
+}' $1 $2
+
+fi
+

@@ -1,0 +1,32 @@
+#!/bin/bash
+echo What should we call your project? 
+read dirname
+echo
+
+# get home dir
+homeaddr=~
+
+# make projects folder if doesn't exist
+if [ ! -d $homeaddr/projects ]; then
+	mkdir $homeaddr/projects
+fi
+
+mkdir $homeaddr/projects/$dirname
+
+echo $homeaddr/projects/$dirname Directory created
+
+touch $homeaddr/projects/$dirname/README
+echo "Created by Jin Hyun Cheong" >> $homeaddr/projects/$dirname/README
+echo "email: jin.hyun.cheong.gr@dartmouth.edu" >> $homeaddr/projects/$dirname/README
+echo "Copyright: Jin Hyun Cheong 2015" >> $homeaddr/projects/$dirname/README
+echo
+echo README file created
+echo 
+
+names='dataRaw dataProcessed scripts reports figures literature'
+
+for name in $names
+do
+mkdir $homeaddr/projects/$dirname/$name
+echo $homeaddr/projects/$dirname/$name created 
+done

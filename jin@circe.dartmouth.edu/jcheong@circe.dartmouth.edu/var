@@ -1,0 +1,13 @@
+#!/bin/bash
+#Calculates variance
+
+var=$1
+awk '{
+x[NR] = $1;
+sum += $1;
+}
+END {
+for (i in x) {
+	sumsq += (x[i]-(sum/NR))**2
+}
+print sumsq/NR }' $var

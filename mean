@@ -1,0 +1,17 @@
+#!/bin/bash
+if [[ ("$1" == "-h" ) || ( "$1" == "--help" ) ]]; then
+echo "This programs takes one input file with one column then computes the mean"
+echo " "
+echo "Example: "
+echo ">> ./mean list2"
+echo ">> 9.66667"
+echo " "
+echo "Copyright: "
+echo "Jin Hyun Cheong 2015"
+echo "jin.hyun.cheong.gr@dartmouth.edu"
+echo "Psychological Brain Sciences"
+echo "Dartmouth College"
+exit 0
+else
+awk '{ sum += $1 } END { if (NR > 0) print sum / NR }' $1
+fi

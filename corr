@@ -1,0 +1,41 @@
+#!/bin/bash
+#Calculates pearson correlation
+if [[ ("$1" == "-h" ) || ( "$1" == "--help" ) ]]; then
+echo "This programs takes one input file with two columns then computes the Pearson correlation"
+echo " "
+echo "Example: " 
+echo ">> ./corr list1"
+echo ">> 0.4969"
+echo " "
+echo "Copyright: " 
+echo "Jin Hyun Cheong 2015"
+echo "jin.hyun.cheong.gr@dartmouth.edu"
+echo "Psychological Brain Sciences"
+echo "Dartmouth College"
+exit 0
+else
+awk '{  
+        x[NR]=$1;
+        y[NR]=$2;
+}
+END {
+for (i in x) {
+sum_x += x[i]
+sum_y += y[i]
+sum_x2 += x[i]**2
+sum_y2 += y[i]**2
+}
+m_x = sum_x / NR
+m_y = sum_y / NR
+m_x2 = sum_x2 / NR
+m_y2 = sum_y2 / NR
+var_x = m_x2 - m_x**2
+var_y = m_y2 - m_y**2
+for (i in x) {
+sum_dxdy += (x[i]-m_x)*(y[i]-m_y)
+}
+covar = sum_dxdy / NR
+print covar / sqrt(var_x*var_y)
+ }' $1 $2
+
+fi

@@ -1,0 +1,19 @@
+#!/bin/bash
+# Calculates dot product
+if [ "$1" == "-h" ] ; then
+echo "This programs takes an input file with two columns then computes the dot product"
+exit 0
+else
+awk '{
+        x[NR]=$1;
+        y[NR]=$2;
+}
+END {
+for (i in x) {
+sum_xy += x[i]*y[i]
+}
+print sum_xy
+}' $1 $2
+
+fi
+

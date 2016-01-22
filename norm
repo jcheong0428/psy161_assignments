@@ -1,0 +1,25 @@
+#!/bin/bash
+# Calculates the 2nd norm of input
+if [[ ("$1" == "-h" ) || ( "$1" == "--help" ) ]]; then
+echo "This programs takes one input file with one column then computes the 2nd norm"
+echo " "
+echo "Example: "
+echo ">> ./norm list2"
+echo ">> 46.0326"
+echo " "
+echo "Copyright: "
+echo "Jin Hyun Cheong 2015"
+echo "jin.hyun.cheong.gr@dartmouth.edu"
+echo "Psychological Brain Sciences"
+echo "Dartmouth College"
+exit 0
+else
+awk '{
+x[NR] = $1;
+}
+END {
+for (i in x) {
+	ssq += x[i]**2
+}
+print sqrt(ssq) }' $1
+fi

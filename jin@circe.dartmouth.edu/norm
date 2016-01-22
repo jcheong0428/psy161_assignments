@@ -1,0 +1,13 @@
+#!/bin/bash
+# Calculates the 2nd norm of input
+
+var=$1
+awk '{
+x[NR] = $1;
+}
+END {
+for (i in x) {
+	print x[i]
+	ssq += x[i]**2
+}
+print sqrt(ssq) }' $var
