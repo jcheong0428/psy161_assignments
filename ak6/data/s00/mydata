@@ -1,0 +1,13 @@
+R-to-L extent:   -79.561 [R] -to-    79.439 [L] -step-     1.000 mm [160 voxels]
+A-to-P extent:  -126.607 [A] -to-   112.455 [P] -step-     0.938 mm [256 voxels]
+I-to-S extent:   -69.650 [I] -to-   169.412 [S] -step-     0.938 mm [256 voxels]
+R-to-L extent:   -79.561 [R] -to-    79.439 [L] -step-     1.000 mm [160 voxels]
+A-to-P extent:  -126.607 [A] -to-   112.455 [P] -step-     0.938 mm [256 voxels]
+I-to-S extent:   -69.650 [I] -to-   169.412 [S] -step-     0.938 mm [256 voxels]
+R-to-L extent:   -79.561 [R] -to-    79.439 [L] -step-     1.000 mm [160 voxels]
+A-to-P extent:  -126.607 [A] -to-   112.455 [P] -step-     0.938 mm [256 voxels]
+I-to-S extent:   -69.650 [I] -to-   169.412 [S] -step-     0.938 mm [256 voxels]
+R-to-L extent:   -79.561 [R] -to-    79.439 [L] -step-     1.000 mm [160 voxels]
+A-to-P extent:  -126.607 [A] -to-   112.455 [P] -step-     0.938 mm [256 voxels]
+I-to-S extent:   -69.650 [I] -to-   169.412 [S] -step-     0.938 mm [256 voxels]
+[andy@head8: Wed Mar 27 16:19:21 2013] 3dAllineate -lpc -wtprefix __tt_anat.nii.gz_ns.nii.gz_al_wtal.nii.gz -weight ./__tt_epi_ref.nii.gz_ts_rs_ns.nii.gz_wt.nii.gz -source ./__tt_anat.nii.gz_ns.nii.gz -prefix anat.nii.gz_al.nii.gz -base ./__tt_epi_ref.nii.gz_ts_rs_ns.nii.gz -nocmass -1Dmatrix_save anat.nii.gz_al_mat.aff12.1D -master SOURCE -weight_frac 1.0 -maxrot 6 -maxshf 10 -VERB -warp aff -source_automask+4 -onepass
