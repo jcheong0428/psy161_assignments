@@ -1,0 +1,22 @@
+#!/bin/bash
+homedir=~
+datapath="$homedir"/ak6/data
+sublist=$(ls $datapath)
+echo $sublist
+for s in s00 s01 s02 s03 s04 s05 s06 s07 s08 s10 s11
+do
+	subpath="$datapath"/"$s"
+	echo $subpath
+	for mask in ev vt
+	do
+		for stim in mon_pri_0 lem_pri_1 mal_bir_2 war_bir_3 lad_bug_4 lun_bug_5
+		do
+		spec=${stim:0:3}
+		genus=${stim:4:3}
+		sbrick=${stim:8:1}
+		value=$( 3dBrickStat -mean -mask ${datapath}/${s}/${mask}_mask.nii.gz "$datapath"/"$s"/glm_betas_allruns.nii.gz[${sbrick}])
+		echo $s $mask $spec $genus $brick $value >> mydata
+done
+done
+done
+
