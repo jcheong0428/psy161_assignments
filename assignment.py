@@ -10,7 +10,6 @@ map(f,list) : take each value of list and do operation on it
 nested list comprehension 
 x_T = [[ col[row] for col in X ] for row in range(nrow) ]
 
-
 """
 a = [1,2,3,4,5,1,2,3,4,5]
 b = [-1,1,5,6,7,5,6,7,8,9]
