@@ -37,3 +37,37 @@ def write(A,fn):
 			f.writelines([str(j),str(' '),])
 		f.writelines(str('\n'))
 	f.close()
+
+def getrow(A,r):
+	'''returns row r of A as a list'''
+	A = zip(*A)
+	return list(A[r])
+
+def row2str(row):
+	'''takes a row as a list returns it as a formatted string'''
+	a = ''
+	for i in range(len(row)):
+		a = a+str(row[i])
+		if i<len(row)-1:
+			a = a+' '
+	return a
+
+def write2(A,fn):
+	'''same as write but using getrow and row2str'''
+	f=file(fn,'a')
+	for i in range(0,len(A[0])):
+		f.writelines([row2str(getrow(A,i)),str(' '),])
+		f.writelines(str('\n'))
+	f.close()
+
+def disp2(A):
+	'''same as disp but using getrow and row2str'''
+	for i in range(0,len(A[0])):
+		s=row2str(getrow(A,i))
+		print str(s).rjust(2)
+
+def slice(A,rowrange,colrange):
+	'''returns a slice of the list'''
+	return [[A[i][j] for j in range(rowrange[0],rowrange[1])] for i in range(colrange[0],colrange[1])]
+
+
