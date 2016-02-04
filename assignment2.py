@@ -16,7 +16,7 @@ def make_rand_array(dims,start=0,stop=10,dt='int'):
 	-------
 	A : list of lists containing random numbers . Length of outer
 	"""
-	m = [[rand.randint(start,stop) for j in range(0,dims[1])] for i in range(0,dims[0])]
+	m = [[rand.randint(start,stop) for j in range(0,dims[0])] for i in range(0,dims[1])]
 	if dt == 'float':
 		n =[]
 		for i in m:
@@ -46,41 +46,6 @@ def size(A):
 	Dimensions of A
 	"""
 	return (len(A[0]),len(A))
-
-def disp(A):
-	"""
-	Display a nicely formatted string of array A
-	Parameters
-	----------
-	A : list
-	max_rows : int. optional ( default = 50)
-	max_cols : int , optional ( default = 20)
-	"""
-	A = zip(*A)
-	for i in A:
-		for j in i:
-			print str(j).rjust(2),
-		print
-
-def write(A,fn,sep=' '):
-	""" Write a matrix to ascii text file , such that rows and columns
-	may be simply parsed using standard tools .
-	Parameters
-	----------
-	A : list
-	fn : str
-	sep : str , optional default = ' '
-	Returns
-	-------
-	None
-	"""
-	f=file(fn,'a')
-	A = zip(*A)
-	for i in A:
-		for j in i:
-			f.writelines([str(j),str(sep),])
-		f.writelines(str('\n'))
-	f.close()
 
 def get_row(A,r=0):
 	""" Return a single row from array A, specified by index r
@@ -128,6 +93,76 @@ def row2str(row,sep=' '):
 			a = a+sep
 	return a
 
+def disp(A,max_rows=50,max_cols=20):
+	"""
+	Display a nicely formatted string of array A
+	Parameters
+	----------
+	A : list
+	max_rows : int. optional ( default = 50)
+	max_cols : int , optional ( default = 20)
+	"""
+	if len(zip(*A)) > max_rows:
+		for i in [0,1,2]:
+			s=row2str(get_row(A,i))
+			print str(s).rjust(2)
+		print '.\n.\n.'
+		for i in [-3,-2,-1]:
+			s=row2str(get_row(A,i))
+			print str(s).rjust(2)
+	elif len(A) > max_cols: 
+		for i in range(0,len(A[0])):
+			B = get_row(A,i)
+			for j in [0,1,2]:
+				print str(B[j]).rjust(2),
+			print ' . . .',
+			for j in [-3,-2,-1]:
+				print str(B[j]).rjust(2),
+			print
+	else:
+		A = zip(*A)
+		for i in A:
+			for j in i:
+				print str(j).rjust(2),
+			print
+
+def write(A,fn,sep=' '):
+	""" Write a matrix to ascii text file , such that rows and columns
+	may be simply parsed using standard tools .
+	Parameters
+	----------
+	A : list
+	fn : str
+	sep : str , optional default = ' '
+	Returns
+	-------
+	None
+	"""
+	f=file(fn,'a')
+	A = zip(*A)
+	for i in A:
+		for j in i:
+			f.writelines([str(j),str(sep),])
+		f.writelines(str('\n'))
+	f.close()
+
+def row2str(row,sep=' '):
+	""" Return a nicely formatted sting of matrix row r
+	Parameters
+	----------
+	r : list
+	sep : str , optional, default = ' '
+	Returns
+	-------
+	row : str
+	"""
+	a = ''
+	for i in range(len(row)):
+		a = a+str(row[i])
+		if i<len(row)-1:
+			a = a+sep
+	return a
+
 def write2(A,fn):
 	'''same as write but using getrow and row2str'''
 	f=file(fn,'a')
@@ -139,7 +174,7 @@ def write2(A,fn):
 def disp2(A):
 	'''same as disp but using getrow and row2str'''
 	for i in range(0,len(A[0])):
-		s=row2str(getrow(A,i))
+		s=row2str(get_row(A,i))
 		print str(s).rjust(2)
 
 def slice(A,rowrange,colrange):
