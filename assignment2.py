@@ -177,7 +177,7 @@ def disp2(A):
 		s=row2str(get_row(A,i))
 		print str(s).rjust(2)
 
-def slice(A,rowrange,colrange):
+def slice0(A,rowrange,colrange):
 	""" Return specified sub - portion of array A
 	Parameters
 	----------
@@ -207,6 +207,26 @@ def get_elem (A, i, j):
 	v : int or float
 	"""
 	return A[j][i]
+
+def slice(A,rowrange,colrange):
+	""" Return specified sub - portion of array A
+	Parameters
+	----------
+	A : list
+		An Array
+	rowrange : list
+		List of row indices ( ints ) specifying rows to be included in returned
+		slice
+	colrange : list
+		List of column indices ( ints ) specifying columns to be returned
+	Returns
+	-------
+	S : list
+	An array which is the sliced version of A
+	"""
+
+	return [[get_elem(A,j,i) for j in rowrange] for i in colrange]
+
 
 def hstack (tup ):
 	""" Stacks arrays in a sequence horizontally ( column wise )
