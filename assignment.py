@@ -21,6 +21,7 @@ def sum(vec):
 	Computes the sum of vector vec
 	"""
 	sum = 0.0;
+	numrows = len(vec) 
 	for j in range(0,numrows):
 		sum += vec[j]
 	return sum
@@ -146,11 +147,11 @@ def corr(vec):
 
 	
 
-print "Average: ", mean(M)
-print "Transpose: ",transpose(M)
-M_T = transpose(M)
-print "Dot product: ", dot(M_T,M)
-print 'Correlation matrix: ', corr(M2)
+# print "Average: ", mean(M)
+# print "Transpose: ",transpose(M)
+# M_T = transpose(M)
+# print "Dot product: ", dot(M_T,M)
+# print 'Correlation matrix: ', corr(M2)
 # print "Correlation: ", corr(M)
 # print "Variance: ",var(M)
 # print "Standard deviation: ",stdev(a)

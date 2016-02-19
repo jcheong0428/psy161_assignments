@@ -150,7 +150,7 @@ def row2str(row,sep=' '):
 	""" Return a nicely formatted sting of matrix row r
 	Parameters
 	----------
-	r : list
+	row : list
 	sep : str , optional, default = ' '
 	Returns
 	-------
