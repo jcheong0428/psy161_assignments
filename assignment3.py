@@ -409,6 +409,40 @@ class Matrix(Array): # inherits Array fields and methods
             m.extend(zip(*tup[i]))
         return zip(*m)
 
+    def sliceout(self,A,tups,axes = None):
+        """
+        Slice code by Andy
+        """
+        idxs = []
+        if axes==None:
+            for i in tups:
+                idxs.append(range(i[0],i[1]))
+        elif len(tups)==len(axes):
+            itups =[]
+            for i in axes:
+                itups.insert(i,tups[i])
+            for i in itups:
+                idxs.append(range(i[0],i[1]))
+        for i,row in enumerate(idxs):
+            A = slice(A,row,i)
+        return A
+
+    def slice(self,A,idx,ax):
+        """
+        Slice code by Andy
+        """
+        res=[]
+        if ax==0:
+            for x in idx:
+                res.append(A[x])
+                # for j,row in enumerate(A): 
+                #     if j == x:
+                #         res.append(row)
+        else:
+            for aa in A:
+                res.append(slice(aa,idx,ax-1))
+        return res
+
 
 class Dataset(Matrix):
     """
