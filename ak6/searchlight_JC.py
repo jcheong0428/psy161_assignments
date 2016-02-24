@@ -61,7 +61,7 @@ def searchlight(subjID=None,radius = 10):
     ds.crossRunMatrix: cross run correlations for each sphere
     '''
     # Function to load nibabel data goes here. 
-    ds = None # dataset with all runs for a subject
+    ds = None # Final dataset output
     numRuns = 10
 
     if subjID == None:
@@ -87,8 +87,7 @@ def searchlight(subjID=None,radius = 10):
                 ds = tr0
             else:
                 ds = np.vstack((ds,tr0))
-    # Make separate columns for runNum and condition (1~6)
-
+    
     # Setting up my dataset Class 
     rows, voxels = ds.shape
     fa = {'conditions': np.array([1,2,3,4,5,6]*10),
@@ -99,7 +98,9 @@ def searchlight(subjID=None,radius = 10):
      'maskfn': maskfn,
      'masksize' : None}
     sa = {'voxnum': [i for i in range(1,voxels+1)]}
-    ds = dataset(ds,fa,sa) # make it into a dataset class
+
+    # save everything into a dataset class
+    ds = dataset(ds,fa,sa) 
 
     # mask the data with subject's brain mask
     rawmask = nb.load(maskfn)
@@ -118,13 +119,16 @@ def searchlight(subjID=None,radius = 10):
     Nx,Ny,Nz = ds.fa['space'] # 80 80 43
     voxels = ds.sa['voxnum'] # 43825
     space = ds.fa['space'] # 80 80 43
-    ds.neighbors = {}
+
+    ds.neighbors = {} # Dictionary with neighboring indices of the searchligh sphere
 
     pbar = ProgressBar()
-    print 'Calculating spheres for searchlight'
+    print 'Calculating spheres for searchlight' 
+    ### This part is inefficient but good for now
     for seedvoxel in pbar(voxels):
         # Sets up the space of the matrix
         seed = idx2xyz(seedvoxel,space) #get coordinates from seed voxel
+        ### Need to check if this is accurate
         x, y, z = np.ogrid[-seed[0]:space[0]-seed[0], -seed[1]:space[1]-seed[1], -seed[2]:space[2]-seed[2]]
         mask_r = x*x + y*y + z*z <= radius*radius
         activation = np.zeros(space)
@@ -136,7 +140,7 @@ def searchlight(subjID=None,radius = 10):
     '''MODULE 3'''
     ''' Run the actual RSA correlation anaylsis for each voxel '''
     print 'Calculating RSA correlations on searchlight'
-    ds.corr_matrix ={}
+    ds.corr_matrix ={} # initiate dictionary for correlation matrix
     pbar = ProgressBar()
     for seedvoxel in pbar(ds.neighbors):
         ds.corr_matrix.update({seedvoxel: {}})
@@ -148,7 +152,6 @@ def searchlight(subjID=None,radius = 10):
             # should return a 6 x 6 matrix
             corr_matrix = np.corrcoef(sphere_data) # get corr matrix
             ds.corr_matrix[seedvoxel].update({runNum : corr_matrix}) #update
-
 
     # Calculate cross run correlations
     ds.crossRunMatrix = {}
