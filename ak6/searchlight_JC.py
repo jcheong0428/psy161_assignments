@@ -119,12 +119,14 @@ def searchlight(subjID=None,radius = 10):
     Nx,Ny,Nz = ds.fa['space'] # 80 80 43
     voxels = ds.sa['voxnum'] # 43825
     space = ds.fa['space'] # 80 80 43
-
+    radius = radius / float(voxSz)
+    print radius
     ds.neighbors = {} # Dictionary with neighboring indices of the searchligh sphere
 
     pbar = ProgressBar()
     print 'Calculating spheres for searchlight' 
     ### This part is inefficient but good for now
+
     for seedvoxel in pbar(voxels):
         # Sets up the space of the matrix
         seed = idx2xyz(seedvoxel,space) #get coordinates from seed voxel
